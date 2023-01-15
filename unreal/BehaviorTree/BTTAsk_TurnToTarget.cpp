@@ -20,7 +20,7 @@ EBTNodeResult::Type UBTTAsk_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& Ow
     EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
    
-    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
     if (controllingEnemy == nullptr)
         return EBTNodeResult::Failed;
 
@@ -34,13 +34,9 @@ EBTNodeResult::Type UBTTAsk_TurnToTarget::ExecuteTask(UBehaviorTreeComponent& Ow
     }
     else //공격중
     {
-        if (controllingEnemy->isTurnDuringAttacking) //공격중에 도는 몬스터가 아니면 리턴
+        if (controllingEnemy->isTurnDuringAttacking) //공격중에 돌 수 있는 enemy
         {
-            //공격중 PARALLEL으로 회전
-            FVector LookVector = playerTarget->GetActorLocation() - controllingEnemy->GetActorLocation();
-            LookVector.Z = 0.0f; //rotator말고 위치의z임
-            TargetRot = FRotationMatrix::MakeFromX(LookVector).Rotator();
-            controllingEnemy->SetActorRotation(FMath::RInterpTo(controllingEnemy->GetActorRotation(), TargetRot, GetWorld()->GetDeltaSeconds(), controllingEnemy->TurnSpeed));
+            TurnToPlayerTarget(playerTarget);
         }
     }
 
@@ -54,7 +50,6 @@ void UBTTAsk_TurnToTarget::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
 {
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
 
-    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
     if (controllingEnemy == nullptr)
         FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
 
@@ -62,13 +57,18 @@ void UBTTAsk_TurnToTarget::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* No
     if (playerTarget == nullptr)
         FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
 
-    FVector LookVector = playerTarget->GetActorLocation() - controllingEnemy->GetActorLocation();
-    LookVector.Z = 0.0f; //rotator말고 위치의z임
-    TargetRot = FRotationMatrix::MakeFromX(LookVector).Rotator();
-    controllingEnemy->SetActorRotation(FMath::RInterpTo(controllingEnemy->GetActorRotation(), TargetRot, GetWorld()->GetDeltaSeconds(), 5.F));
+    TurnToPlayerTarget(playerTarget);
 
     if (controllingEnemy->GetActorRotation().GetManhattanDistance(TargetRot) <= 10.f)
     {
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
+}
+
+void UBTTAsk_TurnToTarget::TurnToPlayerTarget(APlayerCharacter* playerTarget)
+{
+    FVector LookVector = playerTarget->GetActorLocation() - controllingEnemy->GetActorLocation();
+    LookVector.Z = 0.0f; //rotator말고 위치의z임
+    TargetRot = FRotationMatrix::MakeFromX(LookVector).Rotator();
+    controllingEnemy->SetActorRotation(FMath::RInterpTo(controllingEnemy->GetActorRotation(), TargetRot, GetWorld()->GetDeltaSeconds(), 5.F));
 }

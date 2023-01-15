@@ -20,5 +20,9 @@ protected:
 	virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 
 private:
+	void TurnToPlayerTarget(class APlayerCharacter* playerTarget);
+
+	UPROPERTY()
+	class ABasicEnemy* controllingEnemy;
 	FRotator TargetRot;
 };
