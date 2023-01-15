@@ -8,37 +8,29 @@
 UBTTask_Attack::UBTTask_Attack()
 {
     bNotifyTick = true;
-//    IsAttacking = false;
 }
 
 EBTNodeResult::Type UBTTask_Attack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
     EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-    auto Enemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-    if (nullptr == Enemy)
+    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
         return EBTNodeResult::Failed;
 
-    Enemy->Attack();
-  /*  ABCharacter->OnAttackEnd.AddLambda([this]() -> void {
-        IsAttacking = false;
-        });*/
-
+    controllingEnemy->Attack();
     return EBTNodeResult::InProgress;
 }
 
 void UBTTask_Attack::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-    auto Enemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-    if (nullptr == Enemy)
+    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
         return;
-    if (!Enemy->IsAttacking || Enemy->isHited)
-    {
 
+    if (controllingEnemy->IsAttacking == false || controllingEnemy->isHited)
+    {
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
     }
-//    else
-  //      GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("aaaaaaaaaaaaaaaa")); // 화면출력
-
 }

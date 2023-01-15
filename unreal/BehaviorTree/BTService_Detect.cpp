@@ -9,6 +9,8 @@
 #include "PlayerCharacter.h"
 #include "BossEnemy.h"
 #include "Kismet/GameplayStatics.h"
+
+#define DrawDebug 0
 UBTService_Detect::UBTService_Detect()
 {
     NodeName = TEXT("Detect");
@@ -19,63 +21,46 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 {
     Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
-    auto* my = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-    if (nullptr == my)
+    auto* controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
         return;
 
-    UWorld* World = my->GetWorld();
-    FVector Center = my->GetActorLocation();
-    float DetectRadius = my->detectRange;
-
-    if (nullptr == World)
-        return;
-
-    TArray<FOverlapResult> OverlapResults;
-    FCollisionQueryParams CollisionQueryParam(NAME_None, false, my);
-    bool bResult = World->OverlapMultiByChannel(OverlapResults, Center, FQuat::Identity, ECollisionChannel::ECC_GameTraceChannel2, FCollisionShape::MakeSphere(DetectRadius), CollisionQueryParam);
-
-   
-
-    auto* target = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
-
-
- 
-    if (my->isBoss)
+    if (controllingEnemy->isBoss)
     {
-
         OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, UGameplayStatics::GetPlayerCharacter(GetWorld(), 0));
         return;
     }
 
+    UWorld* World = controllingEnemy->GetWorld();
+    FVector Center = controllingEnemy->GetActorLocation();
+    float DetectRadius = controllingEnemy->detectRange;
 
-
-    if (my->myTarget)
-    {
-       
-
-     //   my->SetActorLocation( target->GetActorLocation()+ my->GetActorForwardVector()*150.f);
-        OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, my->myTarget);
-
+    if (World == nullptr)
         return;
 
+    TArray<FOverlapResult> OverlapResults;
+    FCollisionQueryParams CollisionQueryParam(NAME_None, false, controllingEnemy);
+    bool bResult = World->OverlapMultiByChannel(OverlapResults, Center, FQuat::Identity, ECollisionChannel::ECC_GameTraceChannel2, FCollisionShape::MakeSphere(DetectRadius), CollisionQueryParam);
+
+
+    if (controllingEnemy->myTarget)
+    {
+        OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, controllingEnemy->myTarget);
     }
     else if (bResult)
     {
-
         for (auto const& OverlapResult : OverlapResults)
         {
             APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(OverlapResult.GetActor());
             if (playerCharacter && playerCharacter->GetController()->IsPlayerController())
             {
-
                 OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, playerCharacter);
-             //   DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
-
-              //  DrawDebugPoint(World, playerCharacter->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
+#if DrawDebug
+                DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
+                DrawDebugPoint(World, playerCharacter->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
                 //나(적)->상대방(플레이어) 까지 라인
-              //  DrawDebugLine(World, my->GetActorLocation(), playerCharacter->GetActorLocation(), FColor::Blue, false, 0.2f);
-            
-                return;
+                DrawDebugLine(World, my->GetActorLocation(), playerCharacter->GetActorLocation(), FColor::Blue, false, 0.2f);
+#endif
             }
         }
     }
@@ -83,6 +68,4 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
     {
         OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, NULL);
     }
-      //  DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Red, false, 0.2f);
-    
 }

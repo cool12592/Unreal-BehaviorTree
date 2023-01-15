@@ -9,6 +9,7 @@
 /**
  * 
  */
+
 UCLASS()
 class NOTEBOOK_API UBTTask_MyMoveTo : public UBTTaskNode
 {
@@ -17,14 +18,17 @@ public:
     UBTTask_MyMoveTo();
 
     virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+   
 
 protected:
     virtual void TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
-
+      
 private:
-   
-    bool start = false;
+    bool CheckMovableCondition();
+    void MoveToPlayerTarget(UBehaviorTreeComponent& OwnerComp, class APlayerCharacter* playerTarget);
+    void MoveToPatrol(UBehaviorTreeComponent& OwnerComp);
 
     UPROPERTY()
-    FVector goal_pos;
+    class ABasicEnemy* controllingEnemy;
+    bool isFinishedPatrolSetting = false;
 };

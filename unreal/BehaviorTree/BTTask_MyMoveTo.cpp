@@ -13,33 +13,27 @@
 UBTTask_MyMoveTo::UBTTask_MyMoveTo()
 {
     bNotifyTick = true;
-    //    IsAttacking = false;
 }
 
 EBTNodeResult::Type UBTTask_MyMoveTo::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
     EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-  
+    controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
+        return EBTNodeResult::Failed;
+
     UNavigationSystemV1* NavSystem = UNavigationSystemV1::GetNavigationSystem(GetWorld());
     if (NavSystem == nullptr)
         return EBTNodeResult::Failed;
-    auto Enemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
 
-    auto* target = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
-    if (target == nullptr)
+    auto* playerTarget = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
+    if (playerTarget == nullptr)
     {
-        UAIBlueprintHelperLibrary::SimpleMoveToLocation(Enemy->GetController(), OwnerComp.GetBlackboardComponent()->GetValueAsVector(AMyAIController::PatrolPosKey));
-          
-        start = true;
+        UAIBlueprintHelperLibrary::SimpleMoveToLocation(controllingEnemy->GetController(), OwnerComp.GetBlackboardComponent()->GetValueAsVector(AMyAIController::PatrolPosKey));
+        isFinishedPatrolSetting = true;
     }
-   
-
-    
-
-
-   
-
+ 
     return EBTNodeResult::InProgress;
 }
 
@@ -47,71 +41,68 @@ void UBTTask_MyMoveTo::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMe
 {
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
    
-    auto Enemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-  
-    if (nullptr == Enemy)
+    if (controllingEnemy == nullptr)
         return;
 
-
-
-    //3가지 상황  1. 공격중혹은 공격받는 상태면 이동x
+    //3가지 상황  1. 공격중 혹은 공격받는 상태면 이동x
     //            2. 플레이어 타겟이 있을경우 A. 공격 가능상태면 이동중단. B 공격불가능상태인데 추적범위면 추적 C. 공격불가능인데 추적 범위 아니면 중단
     //            3. 플레이어 타겟 없으면 그냥 패트롤 지점으로 이동
 
-    if (Enemy->IsAttacking || Enemy->isHited)
+    bool isMovable = CheckMovableCondition();
+    if (isMovable == false)
     {
-        //GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("111")); // 화면출력
-
         FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
-        return;
-
     }
-    
-
-    auto* player_target = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
-    if (player_target)
+    else
     {
-        
-        //공격가능 상태면 중단
-        if ((Enemy->cooltime <= 0.f && player_target->GetDistanceTo(Enemy) <= Enemy->attackRange)) //공격가능
+        auto* playerTarget = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
+        if (playerTarget)
         {
-          //  GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("2222222")); // 화면출력
-
-            FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
-
+            MoveToPlayerTarget(OwnerComp, playerTarget);
         }
-
-        else   
+        else  
         {
-            if ((player_target->GetDistanceTo(Enemy) > Enemy->TrackToRange)) //추적범위 확인 (어디까지 추적할거냐)
-            {
-              //  GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("33333333")); // 화면출력
-
-                UAIBlueprintHelperLibrary::SimpleMoveToLocation(Enemy->GetController(), player_target->GetActorLocation());
-            }
-            else
-            {
-               // GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("4444444444")); // 화면출력
-
-                UAIBlueprintHelperLibrary::SimpleMoveToLocation(Enemy->GetController(), Enemy->GetActorLocation());//중단
-
-            }
-
+            MoveToPatrol(OwnerComp);
         }
-     
-
-
     }
+}
 
-
-    //3. 플레이어타깃이 없으면 그냥 패트롤위치 가서 속도0되고 중단
-    if (start && Enemy->GetVelocity().Size() < 1.f) //goal_pos== Enemy->GetActorLocation())
+bool UBTTask_MyMoveTo::CheckMovableCondition()
+{
+    if (controllingEnemy->IsAttacking || controllingEnemy->isHited)
     {
-      // GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("55555555")); // 화면출력
+        return false;
+    }
+    return true;
+}
 
+void UBTTask_MyMoveTo::MoveToPlayerTarget(UBehaviorTreeComponent& OwnerComp, APlayerCharacter* playerTarget)
+{
+    auto distance = playerTarget->GetDistanceTo(controllingEnemy);
+    //공격가능 상태면 중단
+    if ((controllingEnemy->attackCoolTime <= 0.f && distance <= controllingEnemy->attackRange)) //공격가능
+    {
+        FinishLatentTask(OwnerComp, EBTNodeResult::Failed);
+    }
+    else
+    {
+        if (distance > controllingEnemy->TrackToRange) //추적범위 확인 (어디까지 추적할거냐)
+        {
+            UAIBlueprintHelperLibrary::SimpleMoveToLocation(controllingEnemy->GetController(), playerTarget->GetActorLocation()); //추적
+        }
+        else
+        {
+            UAIBlueprintHelperLibrary::SimpleMoveToLocation(controllingEnemy->GetController(), controllingEnemy->GetActorLocation());//이동중단(SimpleMoveToLocation먼이상한버그있어서일케중단함)
+        }
+    }
+}
+
+
+
+void UBTTask_MyMoveTo::MoveToPatrol(UBehaviorTreeComponent& OwnerComp)
+{
+    if (isFinishedPatrolSetting && controllingEnemy->GetVelocity().Size() < 1.f) //3상황 플레이어타깃이 없으면 그냥 패트롤위치 가서 속도0되고 중단
+    {
         FinishLatentTask(OwnerComp, EBTNodeResult::Succeeded);
-
     }
-
-
 }

@@ -15,13 +15,11 @@ bool UBTDecorator_IsNotHited::CalculateRawConditionValue(UBehaviorTreeComponent&
 {
     bool bResult = Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 
-  
-
-    auto my = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-    if (nullptr == my)
+    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
         return false;
  
-    bResult = !my->isHited;
+    bResult = !controllingEnemy->isHited;
     return bResult;
 }
 

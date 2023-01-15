@@ -16,19 +16,20 @@ bool UBTDecorator_IsInAttackRange::CalculateRawConditionValue(UBehaviorTreeCompo
 {
     bool bResult = Super::CalculateRawConditionValue(OwnerComp, NodeMemory);
 
-    auto Enemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
-    if (nullptr == Enemy)
+    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    if (controllingEnemy == nullptr)
         return false;
 
-    auto Target = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
-    if (nullptr == Target)
+    auto playerTarget = Cast<APlayerCharacter>(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey));
+    if (playerTarget == nullptr)
         return false;
 
-    bResult = (Target->GetDistanceTo(Enemy) <= Enemy->attackRange);
-    Enemy->SetPlayerDistance(Target->GetDistanceTo(Enemy));
-    
-   if ( Enemy->cooltime > 0) return false;
+    auto distance = playerTarget->GetDistanceTo(controllingEnemy);
+    controllingEnemy->SetPlayerDistance(distance);
+    bResult = (distance <= controllingEnemy->attackRange);
 
+   if (controllingEnemy->attackCoolTime > 0) 
+       return false;
 
     return bResult;
 }
