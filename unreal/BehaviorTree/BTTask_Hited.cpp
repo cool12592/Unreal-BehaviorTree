@@ -15,7 +15,7 @@ EBTNodeResult::Type UBTTask_Hited::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 {
     EBTNodeResult::Type Result = Super::ExecuteTask(OwnerComp, NodeMemory);
 
-    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+    controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
     if (controllingEnemy == nullptr)
         return EBTNodeResult::Failed;
 
@@ -25,7 +25,7 @@ EBTNodeResult::Type UBTTask_Hited::ExecuteTask(UBehaviorTreeComponent& OwnerComp
 void UBTTask_Hited::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
     Super::TickTask(OwnerComp, NodeMemory, DeltaSeconds);
-    auto controllingEnemy = Cast<ABasicEnemy>(OwnerComp.GetAIOwner()->GetPawn());
+  
     if (controllingEnemy == nullptr)
         return;
 
