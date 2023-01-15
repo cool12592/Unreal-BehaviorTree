@@ -51,15 +51,15 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
     {
         for (auto const& OverlapResult : OverlapResults)
         {
-            APlayerCharacter* playerCharacter = Cast<APlayerCharacter>(OverlapResult.GetActor());
-            if (playerCharacter && playerCharacter->GetController()->IsPlayerController())
+            APlayerCharacter* playerTarget = Cast<APlayerCharacter>(OverlapResult.GetActor());
+            if (playerTarget && playerTarget->GetController()->IsPlayerController())
             {
-                OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, playerCharacter);
+                OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, playerTarget);
 #if DrawDebug
                 DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
-                DrawDebugPoint(World, playerCharacter->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
+                DrawDebugPoint(World, playerTarget->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
                 //나(적)->상대방(플레이어) 까지 라인
-                DrawDebugLine(World, my->GetActorLocation(), playerCharacter->GetActorLocation(), FColor::Blue, false, 0.2f);
+                DrawDebugLine(World, controllingEnemy->GetActorLocation(), playerTarget->GetActorLocation(), FColor::Blue, false, 0.2f);
 #endif
             }
         }
