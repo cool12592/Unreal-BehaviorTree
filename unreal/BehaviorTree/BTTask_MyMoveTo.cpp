@@ -62,7 +62,7 @@ void UBTTask_MyMoveTo::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMe
         }
         else  
         {
-            MoveToPatrol(OwnerComp);
+            CheckFinishedPatrol(OwnerComp);
         }
     }
 }
@@ -99,7 +99,7 @@ void UBTTask_MyMoveTo::MoveToPlayerTarget(UBehaviorTreeComponent& OwnerComp, APl
 
 
 
-void UBTTask_MyMoveTo::MoveToPatrol(UBehaviorTreeComponent& OwnerComp)
+void UBTTask_MyMoveTo::CheckFinishedPatrol(UBehaviorTreeComponent& OwnerComp)
 {
     if (isFinishedPatrolSetting && controllingEnemy->GetVelocity().Size() < 1.f) //3상황 플레이어타깃이 없으면 그냥 패트롤위치 가서 속도0되고 중단
     {

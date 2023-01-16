@@ -26,7 +26,7 @@ protected:
 private:
     bool CheckMovableCondition();
     void MoveToPlayerTarget(UBehaviorTreeComponent& OwnerComp, class APlayerCharacter* playerTarget);
-    void MoveToPatrol(UBehaviorTreeComponent& OwnerComp);
+    void CheckFinishedPatrol(UBehaviorTreeComponent& OwnerComp);
 
     UPROPERTY()
     class ABasicEnemy* controllingEnemy;

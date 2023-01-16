@@ -10,7 +10,7 @@
 #include "BossEnemy.h"
 #include "Kismet/GameplayStatics.h"
 
-#define DrawDebug 0
+#define DrawDebug 1
 UBTService_Detect::UBTService_Detect()
 {
     NodeName = TEXT("Detect");
@@ -43,18 +43,21 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
     bool bResult = World->OverlapMultiByChannel(OverlapResults, Center, FQuat::Identity, ECollisionChannel::ECC_GameTraceChannel2, FCollisionShape::MakeSphere(DetectRadius), CollisionQueryParam);
 
 
-    if (controllingEnemy->myTarget)
+    if (controllingEnemy->attackedMeTarget)
     {
-        OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, controllingEnemy->myTarget);
+        if(OwnerComp.GetBlackboardComponent()->GetValueAsObject(AMyAIController::TargetKey) != controllingEnemy->attackedMeTarget)
+            OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, controllingEnemy->attackedMeTarget);
     }
     else if (bResult)
     {
+        bool isPlayerTargetOverlap = false;
         for (auto const& OverlapResult : OverlapResults)
         {
             APlayerCharacter* playerTarget = Cast<APlayerCharacter>(OverlapResult.GetActor());
             if (playerTarget && playerTarget->GetController()->IsPlayerController())
             {
                 OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, playerTarget);
+                isPlayerTargetOverlap = true;
 #if DrawDebug
                 DrawDebugSphere(World, Center, DetectRadius, 16, FColor::Green, false, 0.2f);
                 DrawDebugPoint(World, playerTarget->GetActorLocation(), 10.0f, FColor::Blue, false, 0.2f);
@@ -63,6 +66,8 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
 #endif
             }
         }
+        if(isPlayerTargetOverlap == false)
+            OwnerComp.GetBlackboardComponent()->SetValueAsObject(AMyAIController::TargetKey, NULL);
     }
     else
     {
