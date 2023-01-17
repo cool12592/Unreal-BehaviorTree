@@ -64,6 +64,7 @@ void UBTService_Detect::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeM
                 //나(적)->상대방(플레이어) 까지 라인
                 DrawDebugLine(World, controllingEnemy->GetActorLocation(), playerTarget->GetActorLocation(), FColor::Blue, false, 0.2f);
 #endif
+                break;
             }
         }
         if(isPlayerTargetOverlap == false)
