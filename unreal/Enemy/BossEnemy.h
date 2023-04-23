@@ -17,13 +17,13 @@ class NOTEBOOK_API ABossEnemy : public ABasicEnemy
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-
 private:
 	void RunCoolTime(float DeltaTime);
 	void CalculateDistFromPlayer();
 	void CheckSuddenAttack();
 	void CheckBackAttack();
 	void Turn();
+	bool CheckNearGround();
 
 public:
 
@@ -76,8 +76,7 @@ public:
 	UFUNCTION()
 	void TickParabola(float delta);
 
-	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
-
+	
 	float TurnCoolTime = 2.f;
 
 	bool isParabola=false;
@@ -87,8 +86,13 @@ public:
 	float accumulate_down_vertical_force=0.f;
 	float vertical_force=140.f;
 
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isRotationArroundToPlayer = false;
+
+	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
+
 
 	float backAttackCoolTime = 2.f;
 	float suddenAttackCoolTime = 2.f;

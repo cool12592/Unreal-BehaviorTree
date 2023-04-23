@@ -15,6 +15,7 @@
 ABossEnemy::ABossEnemy()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
 }
 
 // Called when the game starts or when spawned
@@ -130,7 +131,8 @@ void ABossEnemy::Attack()
 		attackNum= FMath::RandRange(1, 3);
 	else
 		attackNum = FMath::RandRange(4, 5);
-	
+
+
 	attackCoolTime = 3.f;
 	IsAttacking = true;
 
@@ -235,12 +237,30 @@ void ABossEnemy::TickParabola(float delta)
 
 	if (isCheckNearGround)
 	{
-		if (GetActorLocation().Z <= 100.f)
+		if (CheckNearGround())
 		{
 			isParabola = false;
 			accumulate_down_vertical_force = 0.f;
 		}
 	}
+}
+
+bool ABossEnemy::CheckNearGround()
+{
+	
+	float range = 100.f;
+	TArray<FHitResult> HitResults;
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	bool bResult = GetWorld()->LineTraceMultiByChannel(HitResults, GetActorLocation(), GetActorLocation() - GetActorUpVector() * range, ECollisionChannel::ECC_GameTraceChannel1, Params);
+
+	if (bResult)
+	{
+		return true;
+	}
+	return false;
 }
 
 void ABossEnemy::Boss_AttackCheck()
@@ -275,6 +295,7 @@ void ABossEnemy::Boss_AttackCheck()
 	}
 
 }
+
 
 void ABossEnemy::MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_, FVector launchVec, FName note)
 {
