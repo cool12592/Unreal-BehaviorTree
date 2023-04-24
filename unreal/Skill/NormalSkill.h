@@ -15,6 +15,7 @@ class NOTEBOOK_API UNormalSkill : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UNormalSkill();
+	UPROPERTY()
 	class APlayerCharacter* myplayer;
 
 protected:
@@ -51,27 +52,37 @@ public:
 	UFUNCTION()
 		void Skill_SwordWaveRepeat();
 
+	UFUNCTION()
+		void Skill_SwordDanceCheck();
+private:
+	void FixedPositionInTheAir(ACharacter* character);
+	void SwordDance();
+
 	void Skill_SwordDance();
-	void Skill_SwordDanceCheck();
 	void Skill_Enemy_fixed();
 	void Skill_Enemy_Slowed();
-
+	void checkFinishAttack();
 
 private:
-	int airComboCount = 0;
-	bool airComboMeleeInputOn = false;
-	int attackMeleeCount = 0;
-	bool attackMeleeInputOn = false;
-	class ABasicEnemy* lastHitEnemy = nullptr;
-	int swordWaveRepeatCount = 0;
-	int waveCount = 0;
-	float chargeAnimPauseTime=0.f;
+	int airComboCount;
+	bool airComboMeleeInputOn;
+	int attackMeleeCount;
+	bool attackMeleeInputOn;
+	int swordWaveRepeatCount;
+	int waveCount;
+	float chargeAnimPauseTime;
+
+	UPROPERTY()
+	class ABasicEnemy* lastHitEnemy;
 
 	FTimerHandle waveWaitHandle;
 	FTimerHandle WaitHandle;
 	FTimerHandle WaitHandle2;
 	FTimerHandle WaitHandle_slow;
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
 	TArray<FVector> airComboPosArray;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
 	TArray<FRotator> airComboRotArray;
 };

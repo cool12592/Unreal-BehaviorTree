@@ -78,40 +78,24 @@ void UInventoryComponent::CloseInventory()
 
 void UInventoryComponent::UseItem(int ItemID)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("heal heal")); // 화면출력
-
 	if (!myOwner )
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Red, TEXT("aa")); // 화면출력
-
 		return;
-	}
+	
 	auto* player = Cast<APlayerCharacter>(myOwner->GetCharacter());
 	if (!player)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Red, TEXT("bb")); // 화면출력
-
 		return;
-	}
+	
+
 	bool me = false;
 	if (myOwner == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-	{
 		me = true;
-	}
 
-	if (me && !Inven_Items_MAP.Find(ItemID))
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Red, TEXT("cc")); // 화면출력
-
+	if (me && Inven_Items_MAP.Find(ItemID) == false)
 		return;
-	}
 	
 	if (me && player->enable_attack == false)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 100.0f, FColor::Red, TEXT("dd")); // 화면출력
-
 		return;
-	}
+
 	switch (ItemID)
 	{
 	case 1:
