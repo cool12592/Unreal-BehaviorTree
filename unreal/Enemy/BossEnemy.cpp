@@ -247,8 +247,7 @@ void ABossEnemy::TickParabola(float delta)
 
 bool ABossEnemy::CheckNearGround()
 {
-	
-	float range = 100.f;
+	float range = 150.f;
 	TArray<FHitResult> HitResults;
 
 	FCollisionQueryParams Params;
@@ -257,9 +256,8 @@ bool ABossEnemy::CheckNearGround()
 	bool bResult = GetWorld()->LineTraceMultiByChannel(HitResults, GetActorLocation(), GetActorLocation() - GetActorUpVector() * range, ECollisionChannel::ECC_GameTraceChannel1, Params);
 
 	if (bResult)
-	{
 		return true;
-	}
+
 	return false;
 }
 
