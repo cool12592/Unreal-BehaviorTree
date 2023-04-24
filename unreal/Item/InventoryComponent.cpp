@@ -19,24 +19,37 @@ UInventoryComponent::UInventoryComponent()
 	Inven_Items_MAP.Add(3, 1);
 	Inven_Items_MAP.Add(1, 3);
 	QuickSlotItemArray.Init(0, 2);
-
 }
 
 void UInventoryComponent::MyInventoryCopyFunc(const UInventoryComponent* other , class AMyPlayerController* controller)
 {
 	Inven_Items_MAP.Empty();
-	if (!other) return;
+	if (other==false) return;
 	Inven_Items_MAP = other->Inven_Items_MAP;
 	NowWeaponWearing_number = other->NowWeaponWearing_number;
 	QuickSlotItemArray = other->QuickSlotItemArray;
+	//if(!myOwner && controller)
 	myOwner = controller;
 }
 
 // Called when the game starts
+
 void UInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+
+// Called every frame
+void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// ...
+}
+
+
+
 
 void UInventoryComponent::ShowInventory()
 {
@@ -47,8 +60,10 @@ void UInventoryComponent::ShowInventory()
 			FName path = TEXT("/Game/My__/UI/Inven/Inventory.Inventory_C");
 			UClass* GeneratedBP = Cast<UClass>(StaticLoadObject(UClass::StaticClass(), NULL, *path.ToString()));
 			uiInventoryWidget = CreateWidget<UUserWidget>(GetWorld(), GeneratedBP);
+
 		}
 		
+
 		if(uiInventoryWidget && uiInventoryWidget->IsInViewport()==false)
 			uiInventoryWidget->AddToViewport();
 		
@@ -76,15 +91,15 @@ void UInventoryComponent::CloseInventory()
 	isShowInventory = false;
 }
 
+
 void UInventoryComponent::UseItem(int ItemID)
 {
-	if (!myOwner )
+	if (myOwner == false)
 		return;
 	
 	auto* player = Cast<APlayerCharacter>(myOwner->GetCharacter());
-	if (!player)
+	if (player == false)
 		return;
-	
 
 	bool me = false;
 	if (myOwner == UGameplayStatics::GetPlayerController(GetWorld(), 0))
@@ -92,25 +107,26 @@ void UInventoryComponent::UseItem(int ItemID)
 
 	if (me && Inven_Items_MAP.Find(ItemID) == false)
 		return;
-	
+
 	if (me && player->enable_attack == false)
 		return;
 
-	switch (ItemID)
+	ItemType itemType = static_cast<ItemType>(ItemID);
+	switch (itemType)
 	{
-	case 1:
+	case ItemType::HP_Potion:
 		if(me)
 			Inven_Items_MAP[ItemID]--;
 		player->HP_HEAL(20.F);
 
 		break;
-	case 2:
+	case ItemType::Stamina_Potion:
 		if(me)
 			Inven_Items_MAP[ItemID]--;
 		player->STAMINA_HEAL(20.F);
 
 		break;
-	case 3:
+	case ItemType::BasicWeapon:
 	{	
 		NowWeaponWearing_number = 3;
 		FOutputDeviceNull pAR;
@@ -122,7 +138,7 @@ void UInventoryComponent::UseItem(int ItemID)
 		}
 		break;
 	}
-	case 4:
+	case ItemType::SpecialWeapon:
 	{
 		NowWeaponWearing_number = 4;
 		FOutputDeviceNull pAR;
@@ -145,4 +161,3 @@ void UInventoryComponent::UseItem(int ItemID)
 		uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("UpdateMyInventory"), pAR, nullptr, true);
 	}
 }
-

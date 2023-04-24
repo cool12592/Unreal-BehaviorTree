@@ -6,6 +6,14 @@
 #include "Components/ActorComponent.h"
 #include "InventoryComponent.generated.h"
 
+UENUM(BlueprintType)
+enum class ItemType : uint8
+{
+	HP_Potion = 0   UMETA(DisplayName = "HP_Potion"),
+	Stamina_Potion = 1  UMETA(DisplayName = "Stamina_Potion"),
+	BasicWeapon = 2     UMETA(DisplayName = "BasicWeapon"),
+	SpecialWeapon = 3   UMETA(DisplayName = "SpecialWeapon"),
+};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable)
 class NOTEBOOK_API UInventoryComponent : public UActorComponent
@@ -24,6 +32,8 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	UFUNCTION(BlueprintCallable, Category = "MyUI")
 		void ShowInventory();
@@ -52,7 +62,7 @@ public:
 	
 	
 	UFUNCTION(BlueprintCallable, Category = "MyUI")
-		void UseItem(int ItemID); //조건체크용
+		void UseItem(int ItemID);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int NowWeaponWearing_number=3;
