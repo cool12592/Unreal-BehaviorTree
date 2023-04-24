@@ -28,7 +28,10 @@ void ABossEnemy::BeginPlay()
 
 	isBoss = true;
 	attackCoolTime = 2.f;
-	
+	backAttackCoolTime = 2.f;
+	suddenAttackCoolTime = 2.f;
+	TurnCoolTime = 2.f;
+
 	MaxHP = 120.f;
 	HP = MaxHP;
 }
@@ -131,7 +134,12 @@ void ABossEnemy::Attack()
 		attackNum= FMath::RandRange(1, 3);
 	else
 		attackNum = FMath::RandRange(4, 5);
-
+	
+	if (firstAttack)
+	{
+		firstAttack = false;
+		attackNum = 5;
+	}
 
 	attackCoolTime = 3.f;
 	IsAttacking = true;
@@ -204,12 +212,12 @@ void ABossEnemy::LaunchToPlayer()
 	isParabola = true;
 
 	FTimerHandle WaitHandle;
-	float WaitTime = 0.5f; //시간을 설정하고
+	float WaitTime = 0.5f; 
 	GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
 		{
 
 			isCheckNearGround = true;
-		}), WaitTime, false); //반복도 여기서 추가 변수를 선언해 설정가능
+		}), WaitTime, false); 
 }
 
 void ABossEnemy::ProjectToTarget()
@@ -257,8 +265,33 @@ bool ABossEnemy::CheckNearGround()
 
 	if (bResult)
 		return true;
-
+	
 	return false;
+}
+
+void ABossEnemy::BossDie()
+{
+	isDie = true;
+	IsAttacking = true; //동작못하게
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 0.3f);
+
+	PlayAnimMontage(DieAnim, 1.f);
+	FOutputDeviceNull pAR3;
+	this->CallFunctionByNameWithArguments(TEXT("BossDieCamera"), pAR3, nullptr, true);
+	GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 5.f, ECameraAnimPlaySpace::CameraLocal);
+
+	FTimerHandle WaitHandle;
+	float WaitTime = 8.f;
+	GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
+		{
+			FName path = TEXT("Blueprint'/Game/My__/PLAYER/Entrance/ToBoss2_Portal_BP.ToBoss2_Portal_BP_C'");
+			UClass* GeneratedBP = Cast<UClass>(StaticLoadObject(UClass::StaticClass(), NULL, *path.ToString()));
+
+			FVector location = GetActorLocation() + GetActorUpVector() * 200.f;
+			FRotator rotation = GetActorRotation();
+			GetWorld()->SpawnActor<AActor>(GeneratedBP, location, rotation);
+
+		}), WaitTime, false);
 }
 
 void ABossEnemy::Boss_AttackCheck()
@@ -297,7 +330,7 @@ void ABossEnemy::Boss_AttackCheck()
 
 void ABossEnemy::MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_, FVector launchVec, FName note)
 {
-	if (HP <= 0 )
+	if (isDie)
 		return;
 
 	if (note == TEXT("meleeReady"))
@@ -309,37 +342,8 @@ void ABossEnemy::MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hi
 	HP -= damage;
 
 	if (HPBarWidget)
-	{
-		//HPBarWidget->SetVisibility(true);
-		//hidenUI_Timer = 5.f;
 		ChangeHP_UI();
-	}
-
-	if (HP <= 0)
-	{
-		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 0.3f);
-
-		isDie = true;
-		IsAttacking = true; //동작못하게
-		PlayAnimMontage(DieAnim, 1.f);
-		FOutputDeviceNull pAR3;
-		this->CallFunctionByNameWithArguments(TEXT("BossDieCamera"), pAR3, nullptr, true);
-		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 5.f, ECameraAnimPlaySpace::CameraLocal);
-
-		FTimerHandle WaitHandle;
-		float WaitTime = 8.f; //시간을 설정하고
-		GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
-			{
-				FName path = TEXT("Blueprint'/Game/My__/PLAYER/Entrance/ToBoss2_Portal_BP.ToBoss2_Portal_BP_C'");
-				UClass* GeneratedBP = Cast<UClass>(StaticLoadObject(UClass::StaticClass(), NULL, *path.ToString()));
-
-				FVector location = GetActorLocation() + GetActorUpVector() * 200.f;
-				FRotator rotation = GetActorRotation();
-				GetWorld()->SpawnActor<AActor>(GeneratedBP, location, rotation);
-
-			}), WaitTime, false); //반복도 여기서 추가 변수를 선언해 설정가능
-
-
-	}
 	
+	if (HP <= 0)
+		BossDie();
 }

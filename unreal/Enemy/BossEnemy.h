@@ -24,7 +24,7 @@ private:
 	void CheckBackAttack();
 	void Turn();
 	bool CheckNearGround();
-
+	void BossDie();
 public:
 
 	ABossEnemy();
@@ -74,10 +74,11 @@ public:
 	UFUNCTION()
 		void ProjectToTarget();
 	UFUNCTION()
-	void TickParabola(float delta);
+		void TickParabola(float delta);
 
+	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
 	
-	float TurnCoolTime = 2.f;
+	float TurnCoolTime;
 
 	bool isParabola=false;
 	bool isCheckNearGround=false;
@@ -91,11 +92,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isRotationArroundToPlayer = false;
 
-	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
-
-
-	float backAttackCoolTime = 2.f;
-	float suddenAttackCoolTime = 2.f;
+	float backAttackCoolTime;
+	float suddenAttackCoolTime;
 
 	FVector startLocation;
 	FVector targetLocation;
