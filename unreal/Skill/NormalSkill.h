@@ -7,21 +7,20 @@
 #include "NormalSkill.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class NOTEBOOK_API UNormalSkill : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UNormalSkill();
-	UPROPERTY()
 	class APlayerCharacter* myplayer;
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	
+
 public:
 	/** Allow each actor to run at a different time speed. The DeltaTime for a frame is multiplied by the global TimeDilation (in WorldSettings) and this CustomTimeDilation for this actor's tick.  */
 //	UPROPERTY(BlueprintReadWrite, AdvancedDisplay, Category = Actor)
@@ -32,15 +31,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void CountReset();
 	//skill
-	
+
 	UFUNCTION(NetMulticast, Reliable)
 		void AirCombo_Multicast();
 	UFUNCTION()
 		void AirComboNextCombo();
 	UFUNCTION()
 		void AirComboCheck();
-	
-	
+
+
 	UFUNCTION(NetMulticast, Reliable)
 		void Skill_SwordWave_Multicast();
 
@@ -61,7 +60,7 @@ private:
 	void Skill_SwordDance();
 	void Skill_Enemy_fixed();
 	void Skill_Enemy_Slowed();
-	void checkFinishAttack();
+	void CheckFinishAttack();
 
 private:
 	int airComboCount;
@@ -73,7 +72,7 @@ private:
 	float chargeAnimPauseTime;
 
 	UPROPERTY()
-	class ABasicEnemy* lastHitEnemy;
+		class ABasicEnemy* lastHitEnemy;
 
 	FTimerHandle waveWaitHandle;
 	FTimerHandle WaitHandle;
@@ -82,7 +81,7 @@ private:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
-	TArray<FVector> airComboPosArray;
+		TArray<FVector> airComboPosArray;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
-	TArray<FRotator> airComboRotArray;
+		TArray<FRotator> airComboRotArray;
 };

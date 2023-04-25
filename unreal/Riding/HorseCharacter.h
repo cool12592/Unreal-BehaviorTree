@@ -26,16 +26,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	UFUNCTION()
-		void MoveForWard(float value);
+	void MoveForWard(float value);
 	UFUNCTION()
-		void MoveRight(float value);
+	void MoveRight(float value);
 	UFUNCTION()
 	void StartJump();
 
+	void CheckTiltBody(float DeltaTime);
+	
 	UPROPERTY()
 	FVector oldDirection;
 	UPROPERTY()
-		FVector oldDirection2;
+	FVector oldDirection2;
 
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	int isRight = 0;
@@ -43,10 +45,8 @@ public:
 	UPROPERTY()
 	FVector oldForward;
 
-
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly)
 	bool enable_move = true;
-
 
 	UPROPERTY()
 	float direction_count = 0.f;

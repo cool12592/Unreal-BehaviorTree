@@ -24,6 +24,7 @@ UNormalSkill::UNormalSkill()
 }
 
 
+
 // Called when the game starts
 void UNormalSkill::BeginPlay()
 {
@@ -75,14 +76,14 @@ void UNormalSkill::AirComboNextCombo()
 		airComboMeleeInputOn = false;
 
 		int arrayInd = (airComboCount - 1) % 4;
-		myplayer->GetMesh()->SetRelativeLocationAndRotation(airComboPosArray[arrayInd],airComboRotArray[arrayInd]);
+		myplayer->GetMesh()->SetRelativeLocationAndRotation(airComboPosArray[arrayInd], airComboRotArray[arrayInd]);
 
 		airComboCount++;
 		myplayer->PlayAnimMontage(myplayer->airComboAnim, 1.f, FName(*FString::FromInt(airComboCount)));
 
 		if (airComboCount == 2)
 			FixedPositionInTheAir(myplayer);
-	
+
 		if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
 			GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 7.f, ECameraAnimPlaySpace::CameraLocal);
 	}
@@ -178,13 +179,13 @@ void UNormalSkill::SwordDance()
 	auto* particle1 = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), myplayer->Particle_teleportCharge, myplayer->GetActorLocation() + FVector(0.f, -70.f, 0.f));
 	particle1->CustomTimeDilation = 3.f;
 
-	float WaitTime = 0.7f; 
+	float WaitTime = 0.7f;
 	GetWorld()->GetTimerManager().SetTimer(WaitHandle, FTimerDelegate::CreateLambda([&]()
 		{
 			myplayer->CustomTimeDilation = 0.1f;
 			Skill_Enemy_Slowed();
 
-			float WaitTime2 = 1.6f; 
+			float WaitTime2 = 1.6f;
 
 			GetWorld()->GetTimerManager().SetTimer(WaitHandle2, FTimerDelegate::CreateLambda([&]()
 				{
@@ -200,14 +201,14 @@ void UNormalSkill::SwordDance()
 					Skill_SwordDance();
 					myplayer->CustomTimeDilation = 1.f;
 
-				}), WaitTime2, false); 
+				}), WaitTime2, false);
 
-		}), WaitTime, false); 
+		}), WaitTime, false);
 }
 
 void UNormalSkill::Skill_SwordWave_Multicast_Implementation()
 {
-	
+
 	if (!myplayer->GetCharacterMovement()->IsMovingOnGround() || !myplayer->Attack_Melee_StateCheck()) return;
 	if (!myplayer->CheckCoolTimeAndStamina(SkillName::swordWave)) return;
 
@@ -247,16 +248,16 @@ void UNormalSkill::Skill_SwordWavePause()
 	auto* particleActor = UGameplayStatics::SpawnEmitterAttached(particle, myplayer->GetMesh(), FName("Pelvis"), FVector(0.f, -130.f, 50.f), FRotator::ZeroRotator, FVector(2.F));
 	particleActor->CustomTimeDilation = delay;
 
-	float WaitTime = 2.f; 
+	float WaitTime = 2.f;
 
 	if (myplayer->isDashComboCharge == true)
 		WaitTime = 10.f;
 
 	GetWorld()->GetTimerManager().SetTimer(waveWaitHandle, FTimerDelegate::CreateLambda([&]()
 		{
-			myplayer->myAnim->Montage_Resume(myplayer->GetCurrentMontage()); 
+			myplayer->myAnim->Montage_Resume(myplayer->GetCurrentMontage());
 
-		}), WaitTime, false); 
+		}), WaitTime, false);
 
 }
 
@@ -269,11 +270,11 @@ void UNormalSkill::Skill_SwordWaveRepeat()
 	FRotator rotator = myplayer->GetActorRotation();
 	FVector  SpawnLocation = myplayer->GetActorLocation();// -myplayer->GetActorUpVector() * 150.f;
 	//SpawnLocation.Z -= 90.0f;
-	auto* wave=  GetWorld()->SpawnActor<AActor>(myplayer->waveActorBP, SpawnLocation , rotator, SpawnParams);
+	auto* wave = GetWorld()->SpawnActor<AActor>(myplayer->waveActorBP, SpawnLocation, rotator, SpawnParams);
 
 	FString waveName;
 	FOutputDeviceNull OutputDeviceNull;
-	if(waveCount == LastWaveCount)
+	if (waveCount == LastWaveCount)
 		waveName = "BigWaveSpawn";
 	else
 	{
@@ -308,7 +309,7 @@ void UNormalSkill::Skill_SwordDanceCheck()
 		ECollisionChannel::ECC_GameTraceChannel1,
 		FCollisionShape::MakeSphere(attact_radius),
 		Params);
-	
+
 	if (bResult)
 	{
 		for (const FHitResult& HitResult : HitResults)
@@ -318,7 +319,7 @@ void UNormalSkill::Skill_SwordDanceCheck()
 			{
 				enemyActor->CustomTimeDilation = 1.f;
 				enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::knock, 1.f);
-			}	
+			}
 		}
 	}
 	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
@@ -343,7 +344,7 @@ void UNormalSkill::Skill_Enemy_fixed()
 		ECollisionChannel::ECC_GameTraceChannel1,
 		FCollisionShape::MakeSphere(attact_radius),
 		Params);
-	
+
 	if (bResult)
 	{
 		for (const FHitResult& HitResult : HitResults)
@@ -377,7 +378,7 @@ void UNormalSkill::Skill_Enemy_Slowed()
 		ECollisionChannel::ECC_GameTraceChannel1,
 		FCollisionShape::MakeSphere(radius),
 		Params);
-	
+
 	if (bResult)
 	{
 		for (const FHitResult& HitResult : HitResults)
@@ -412,11 +413,11 @@ void UNormalSkill::Skill_DashCombo_Multicast_Implementation()
 		myplayer->isDashComboCharge = false; //실패했단것
 		return;
 	}
-	
+
 	myplayer->Oninvincibility();
 	FOutputDeviceNull pAR;
 	myplayer->CallFunctionByNameWithArguments(TEXT("Camera_enlargement"), pAR, nullptr, true);
-	
+
 
 	FOutputDeviceNull pAR2;
 	myplayer->CallFunctionByNameWithArguments(TEXT("SkillDashComboInBP"), pAR2, nullptr, true);
