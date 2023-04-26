@@ -109,21 +109,11 @@ void UNormalSkill::Skill_AirLaunch_Check()
 	airLaunchCount++;
 
 	TArray<FHitResult> HitResults;
-
 	float radius = 250.f;
-
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(myplayer); //예외 충돌대상
-
-	bool bResult = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		myplayer->GetActorLocation(),
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * radius,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel1,
-		FCollisionShape::MakeSphere(radius),
-		Params);
-
+	FVector start = myplayer->GetActorLocation();
+	FVector end = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * radius;
+	bool bResult = SweepTrace(start, end, radius, HitResults);
+	
 	if (bResult)
 	{
 		for (const FHitResult& HitResult : HitResults)
@@ -142,8 +132,7 @@ void UNormalSkill::Skill_AirLaunch_Check()
 		}
 	}
 
-	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 10.f, ECameraAnimPlaySpace::CameraLocal);
+	MyCameraShake(10.f);
 }
 
 
@@ -192,8 +181,7 @@ void UNormalSkill::AirComboNextCombo()
 		if (airComboCount == 2)
 			FixedPositionInTheAir(myplayer);
 
-		if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-			GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 7.f, ECameraAnimPlaySpace::CameraLocal);
+		MyCameraShake(7.f);
 	}
 	else
 	{
@@ -206,21 +194,12 @@ void UNormalSkill::AirComboCheck()
 	if (airComboCount == 1)
 		myplayer->LaunchCharacter(FVector(0, 0, LaunchPower), false, false);
 
-	float attack_range = 100.f;
-	float attact_radius = 200.f;
 	TArray<FHitResult> HitResults;
-
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(myplayer);
-
-	bool bResult = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		myplayer->GetActorLocation(),
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * attack_range,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel1,
-		FCollisionShape::MakeSphere(attact_radius),
-		Params);
+	float range = 100.f;
+	float radius = 200.f;
+	FVector start = myplayer->GetActorLocation();
+	FVector end = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * range;
+	bool bResult = SweepTrace(start, end, radius, HitResults);
 
 	lastHitEnemy = nullptr;
 
@@ -255,10 +234,7 @@ void UNormalSkill::AirComboCheck()
 	}
 
 	CheckFinishAttack();
-
-	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 7.f, ECameraAnimPlaySpace::CameraLocal);
-
+	MyCameraShake(7.f);
 }
 
 void UNormalSkill::CheckFinishAttack()
@@ -276,6 +252,29 @@ void UNormalSkill::CheckFinishAttack()
 		}
 
 	}
+}
+
+void UNormalSkill::MyCameraShake(float power)
+{
+	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), power, ECameraAnimPlaySpace::CameraLocal);
+}
+
+bool UNormalSkill::SweepTrace(FVector start, FVector end, float radius, TArray<FHitResult>& HitResults)
+{
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(myplayer);
+
+	bool bResult = GetWorld()->SweepMultiByChannel(
+		HitResults,
+		start,
+		end,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel1,
+		FCollisionShape::MakeSphere(radius),
+		Params);
+
+	return bResult;
 }
 
 void UNormalSkill::SwordDance()
@@ -402,21 +401,12 @@ void UNormalSkill::Skill_SwordDance()
 
 void UNormalSkill::Skill_SwordDanceCheck()
 {
-	float attack_range = 400.f;
-	float attact_radius = 400.f;
 	TArray<FHitResult> HitResults;
-
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(myplayer);
-
-	bool bResult = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		myplayer->GetActorLocation(),
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * attack_range,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel1,
-		FCollisionShape::MakeSphere(attact_radius),
-		Params);
+	float range = 400.f;
+	float radius = 400.f;
+	FVector start = myplayer->GetActorLocation();
+	FVector end = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * range;
+	bool bResult = SweepTrace(start, end, radius, HitResults);
 
 	if (bResult)
 	{
@@ -430,28 +420,18 @@ void UNormalSkill::Skill_SwordDanceCheck()
 			}
 		}
 	}
-	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 20.f, ECameraAnimPlaySpace::CameraLocal);
+	MyCameraShake(20.f);
 }
 
 void UNormalSkill::Skill_Enemy_fixed()
 {
 
-	float attack_range = 800.f;
-	float attact_radius = 800.f;
 	TArray<FHitResult> HitResults;
-
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(myplayer);
-
-	bool bResult = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		myplayer->GetActorLocation(),
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * attack_range,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel1,
-		FCollisionShape::MakeSphere(attact_radius),
-		Params);
+	float range = 800.f;
+	float radius = 800.f;
+	FVector start = myplayer->GetActorLocation();
+	FVector end = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * range;
+	bool bResult = SweepTrace(start, end, radius, HitResults);
 
 	if (bResult)
 	{
@@ -471,21 +451,11 @@ void UNormalSkill::Skill_Enemy_fixed()
 void UNormalSkill::Skill_Enemy_Slowed()
 {
 	TArray<FHitResult> HitResults;
-
-	float start = 0.f;
+	float range = 500.f;
 	float radius = 500.f;
-
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(myplayer); //예외 충돌대상
-
-	bool bResult = GetWorld()->SweepMultiByChannel(
-		HitResults,
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * start,
-		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * radius,
-		FQuat::Identity,
-		ECollisionChannel::ECC_GameTraceChannel1,
-		FCollisionShape::MakeSphere(radius),
-		Params);
+	FVector start = myplayer->GetActorLocation();
+	FVector end = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * range;
+	bool bResult = SweepTrace(start, end, radius, HitResults);
 
 	if (bResult)
 	{

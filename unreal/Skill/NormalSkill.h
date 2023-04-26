@@ -81,6 +81,8 @@ private:
 	void Skill_Enemy_fixed();
 	void Skill_Enemy_Slowed();
 	void CheckFinishAttack();
+	void MyCameraShake(float power);
+	bool SweepTrace(FVector start, FVector end, float radius, TArray<FHitResult>& HitResults);
 
 private:
 	int airComboCount;
