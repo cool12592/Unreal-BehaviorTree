@@ -12,6 +12,7 @@
 
 #define LastAirComboCount 6
 #define LastWaveCount 5
+#define LaunchPower 1500
 
 // Sets default values for this component's properties
 UNormalSkill::UNormalSkill()
@@ -32,23 +33,131 @@ void UNormalSkill::BeginPlay()
 	SetAllState(true);
 }
 
+bool UNormalSkill::CheckNormalSkillCondition(SkillName skillName)
+{
+	if (myplayer->enable_attack == false) return false;
+	if (myplayer->GetCharacterMovement()->IsMovingOnGround() == false) return false;
+	if (myplayer->CheckCoolTimeAndStamina(skillName) == false) return false;
+	return true;
+}
+
+void UNormalSkill::ConsumeNormalSkillCondition(SkillName skillName)
+{
+	myplayer->SetAllState(false);
+	myplayer->ConsumeCoolTimeAndStamina(skillName);
+}
+
 void UNormalSkill::SetAllState(bool b)
 {
 	myplayer->SetAllState(b);
-	airComboCount = 0;
 }
 
 void UNormalSkill::CountReset()
 {
-	myplayer->CountReset();
+	airLaunchCount = 0;
+	airComboCount = 0;
+	myplayer->GetCharacterMovement()->GravityScale = 1.f;
+	myplayer->Offinvincibility();
 }
 
+void UNormalSkill::Skill_DashAttack_Implementation()
+{
+	Skill_DashAttack_Multicast();
+}
+
+void UNormalSkill::Skill_DashAttack_Multicast_Implementation()
+{
+	if (CheckNormalSkillCondition(SkillName::dash) == false) return;
+	ConsumeNormalSkillCondition(SkillName::dash);
+
+	myplayer->PlayAnimMontage(myplayer->dashAttackAnim, 1.0f);
+	
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = myplayer;
+	FRotator rotator(0.f, 0.f, 0.f);
+	FVector  SpawnLocation = myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * 100.f;
+	GetWorld()->SpawnActor<AActor>(myplayer->dashAttachBP, SpawnLocation + FVector(0.0f, 0.f, 0.f), myplayer->GetActorRotation(), SpawnParams);
+
+}
+
+void UNormalSkill::Skill_AirLaunch_Implementation()
+{
+	Skill_AirLaunch_Multicast();
+}
+
+void UNormalSkill::Skill_AirLaunch_Multicast_Implementation()
+{
+	if (CheckNormalSkillCondition(SkillName::airLaunch) == false) return;
+	ConsumeNormalSkillCondition(SkillName::airLaunch);
+
+	myplayer->SetActorEnableCollision(false);
+	myplayer->GetCharacterMovement()->StopMovementImmediately();
+	myplayer->LaunchCharacter(FVector(0, 0, LaunchPower), false, false);
+
+	myplayer->PlayAnimMontage(myplayer->airLaunchAnim, 1.0f);
+
+	FTimerHandle tempWaitHandle;
+	float WaitTime = 1.f; 
+	GetWorld()->GetTimerManager().SetTimer(tempWaitHandle, FTimerDelegate::CreateLambda([&]()
+		{
+			myplayer->SetActorEnableCollision(true);
+		}), WaitTime, false);
+}
+
+void UNormalSkill::Skill_AirLaunch_Check()
+{
+	airLaunchCount++;
+
+	TArray<FHitResult> HitResults;
+
+	float radius = 250.f;
+
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(myplayer); //예외 충돌대상
+
+	bool bResult = GetWorld()->SweepMultiByChannel(
+		HitResults,
+		myplayer->GetActorLocation(),
+		myplayer->GetActorLocation() + myplayer->GetActorForwardVector() * radius,
+		FQuat::Identity,
+		ECollisionChannel::ECC_GameTraceChannel1,
+		FCollisionShape::MakeSphere(radius),
+		Params);
+
+	if (bResult)
+	{
+		for (const FHitResult& HitResult : HitResults)
+		{
+			ABasicEnemy* enemyActor = Cast<ABasicEnemy>(HitResult.Actor);
+			if (enemyActor)
+			{
+				if (airLaunchCount == 1)
+				{
+					enemyActor->GetCharacterMovement()->StopMovementImmediately();
+					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::RightLeft, 3.f, FVector(0.f, 0.f, 1420.f));
+				}
+				else
+					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::RightLeft, 3.f);
+			}
+		}
+	}
+
+	if (myplayer->GetController() == UGameplayStatics::GetPlayerController(GetWorld(), 0))
+		GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(UMyMatineeCameraShake::StaticClass(), 10.f, ECameraAnimPlaySpace::CameraLocal);
+}
+
+
+void UNormalSkill::AirCombo_Implementation()
+{
+	AirCombo_Multicast();
+}
 
 void UNormalSkill::AirCombo_Multicast_Implementation()
 {
 	if (airComboCount == 0)
 	{
 		if (myplayer->CheckCoolTimeAndStamina(SkillName::airCombo) == false) return;
+		ConsumeNormalSkillCondition(SkillName::airCombo);
 
 		if (myplayer->GetCharacterMovement()->IsMovingOnGround() == false) //이미공중이면 첫번째동작은 노필요
 		{
@@ -57,7 +166,6 @@ void UNormalSkill::AirCombo_Multicast_Implementation()
 		}
 
 		airComboCount++;
-		myplayer->enable_attack = false;
 		myplayer->PlayAnimMontage(myplayer->airComboAnim, 1.f, FName(*FString::FromInt(airComboCount)));
 
 		airComboMeleeInputOn = false;
@@ -96,7 +204,7 @@ void UNormalSkill::AirComboNextCombo()
 void UNormalSkill::AirComboCheck()
 {
 	if (airComboCount == 1)
-		myplayer->LaunchCharacter(FVector(0, 0, 1500), false, false);
+		myplayer->LaunchCharacter(FVector(0, 0, LaunchPower), false, false);
 
 	float attack_range = 100.f;
 	float attact_radius = 200.f;
@@ -132,7 +240,7 @@ void UNormalSkill::AirComboCheck()
 					enemyActor->LandingTimer(); //내가 때리다 말수있으므로 착륙 타이머시킴
 
 					if (airComboCount == 1)
-						enemyActor->LaunchCharacter(FVector(0, 0, 1500), false, false);
+						enemyActor->LaunchCharacter(FVector(0, 0, LaunchPower), false, false);
 					else if (airComboCount == 2)
 						FixedPositionInTheAir(enemyActor);
 				}
@@ -193,8 +301,7 @@ void UNormalSkill::SwordDance()
 					auto* particle2 = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), myplayer->Particle_teleportEnter, myplayer->GetActorLocation());
 					particle2->CustomTimeDilation = 0.5f;
 					myplayer->SetActorLocation(lastHitEnemy->GetActorLocation() - myplayer->GetActorForwardVector() * 300.f);
-					myplayer->GetCharacterMovement()->GravityScale = 0.f;
-					myplayer->GetCharacterMovement()->StopMovementImmediately();
+					FixedPositionInTheAir(myplayer);
 					auto* particle3 = UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), myplayer->Particle_teleportExit, myplayer->GetActorLocation());
 					particle3->CustomTimeDilation = 0.5f;
 
@@ -209,9 +316,10 @@ void UNormalSkill::SwordDance()
 void UNormalSkill::Skill_SwordWave_Multicast_Implementation()
 {
 
-	if (!myplayer->GetCharacterMovement()->IsMovingOnGround() || !myplayer->Attack_Melee_StateCheck()) return;
-	if (!myplayer->CheckCoolTimeAndStamina(SkillName::swordWave)) return;
+	if (CheckNormalSkillCondition(SkillName::swordWave))
+		return;
 
+	ConsumeNormalSkillCondition(SkillName::swordWave);
 	myplayer->Oninvincibility();
 	FOutputDeviceNull pAR;
 	myplayer->CallFunctionByNameWithArguments(TEXT("Camera_enlargement"), pAR, nullptr, true);
@@ -413,7 +521,7 @@ void UNormalSkill::Skill_DashCombo_Multicast_Implementation()
 		myplayer->isDashComboCharge = false; //실패했단것
 		return;
 	}
-
+	myplayer->ConsumeCoolTimeAndStamina(SkillName::dashCombo);
 	myplayer->Oninvincibility();
 	FOutputDeviceNull pAR;
 	myplayer->CallFunctionByNameWithArguments(TEXT("Camera_enlargement"), pAR, nullptr, true);

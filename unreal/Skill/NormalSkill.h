@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "NormalSkill.generated.h"
 
+enum class SkillName : uint8;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class NOTEBOOK_API UNormalSkill : public UActorComponent
@@ -22,37 +23,56 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	/** Allow each actor to run at a different time speed. The DeltaTime for a frame is multiplied by the global TimeDilation (in WorldSettings) and this CustomTimeDilation for this actor's tick.  */
-//	UPROPERTY(BlueprintReadWrite, AdvancedDisplay, Category = Actor)
-	//	float CustomTimeDilation;
+
+	//condition
+	bool CheckNormalSkillCondition(SkillName skillName);
+	void ConsumeNormalSkillCondition(SkillName skillName);
 
 	UFUNCTION(BlueprintCallable)
-		void SetAllState(bool b);
+	void SetAllState(bool b);
 	UFUNCTION(BlueprintCallable)
-		void CountReset();
-	//skill
+	void CountReset();
 
+	////////
+	//skill/
+	////////
+
+	//DashAttack
+	UFUNCTION(Server, Reliable)
+		void Skill_DashAttack();
+	UFUNCTION(NetMulticast, Reliable)
+		void Skill_DashAttack_Multicast();
+
+	//AirLaunch
+	UFUNCTION(Server, Reliable)
+		void Skill_AirLaunch();
+	UFUNCTION(NetMulticast, Reliable)
+		void Skill_AirLaunch_Multicast();
+	UFUNCTION()
+		void Skill_AirLaunch_Check();
+
+	//AirCombo
+	UFUNCTION(Server, Reliable)
+		void AirCombo();
 	UFUNCTION(NetMulticast, Reliable)
 		void AirCombo_Multicast();
 	UFUNCTION()
 		void AirComboNextCombo();
 	UFUNCTION()
 		void AirComboCheck();
+	UFUNCTION()
+		void Skill_SwordDanceCheck();
 
-
+	//SwordWave
 	UFUNCTION(NetMulticast, Reliable)
 		void Skill_SwordWave_Multicast();
-
-	UFUNCTION(NetMulticast, Reliable)
-		void Skill_DashCombo_Multicast();
-
 	UFUNCTION()
 		void Skill_SwordWavePause();
 	UFUNCTION()
 		void Skill_SwordWaveRepeat();
+	UFUNCTION(NetMulticast, Reliable)
+		void Skill_DashCombo_Multicast();
 
-	UFUNCTION()
-		void Skill_SwordDanceCheck();
 private:
 	void FixedPositionInTheAir(ACharacter* character);
 	void SwordDance();
@@ -65,14 +85,13 @@ private:
 private:
 	int airComboCount;
 	bool airComboMeleeInputOn;
-	int attackMeleeCount;
-	bool attackMeleeInputOn;
 	int swordWaveRepeatCount;
 	int waveCount;
 	float chargeAnimPauseTime;
+	int airLaunchCount;
 
 	UPROPERTY()
-		class ABasicEnemy* lastHitEnemy;
+	class ABasicEnemy* lastHitEnemy;
 
 	FTimerHandle waveWaitHandle;
 	FTimerHandle WaitHandle;
@@ -81,7 +100,7 @@ private:
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
-		TArray<FVector> airComboPosArray;
+	TArray<FVector> airComboPosArray;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AirCombo")
-		TArray<FRotator> airComboRotArray;
+	TArray<FRotator> airComboRotArray;
 };
