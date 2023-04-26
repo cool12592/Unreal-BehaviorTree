@@ -117,23 +117,23 @@ void UInventoryComponent::UseItem(ItemType itemType)
 		if (isMine)
 			InvenItemMap[itemType]--;
 		player->HP_HEAL(20.F);
-
 		break;
+
 	case ItemType::Stamina_Potion:
 		if (isMine)
 			InvenItemMap[itemType]--;
 		player->STAMINA_HEAL(20.F);
-
 		break;
+
 	case ItemType::BasicWeapon:
 	{
 		wearingWeapon = ItemType::BasicWeapon;
 		FOutputDeviceNull pAR;
-		player->CallFunctionByNameWithArguments(TEXT("TempWeaponChange1"), pAR, nullptr, true);
+		player->CallFunctionByNameWithArguments(TEXT("WeaponChange"), pAR, nullptr, true);
 		if (isMine && uiInventoryWidget)
 		{
 			FOutputDeviceNull pAR2;
-			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetWeaponUI_POS"), pAR2, nullptr, true);
+			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetEquipUI"), pAR2, nullptr, true);
 		}
 		break;
 	}
@@ -141,11 +141,11 @@ void UInventoryComponent::UseItem(ItemType itemType)
 	{
 		wearingWeapon = ItemType::SpecialWeapon;
 		FOutputDeviceNull pAR;
-		player->CallFunctionByNameWithArguments(TEXT("TempWeaponChange2"), pAR, nullptr, true);
+		player->CallFunctionByNameWithArguments(TEXT("WeaponChange"), pAR, nullptr, true);
 		if (isMine && uiInventoryWidget)
 		{
 			FOutputDeviceNull pAR2;
-			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetWeaponUI_POS"), pAR2, nullptr, true);
+			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetEquipUI"), pAR2, nullptr, true);
 		}
 		break;
 	}
