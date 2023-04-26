@@ -4,23 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "ItemBase.h"
 #include "InventoryComponent.generated.h"
-
-UENUM(BlueprintType)
-enum class ItemType : uint8
-{
-	HP_Potion = 0   UMETA(DisplayName = "HP_Potion"),
-	Stamina_Potion = 1  UMETA(DisplayName = "Stamina_Potion"),
-	BasicWeapon = 2     UMETA(DisplayName = "BasicWeapon"),
-	SpecialWeapon = 3   UMETA(DisplayName = "SpecialWeapon"),
-};
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable)
 class NOTEBOOK_API UInventoryComponent : public UActorComponent
 {
 	GENERATED_BODY()
-
+		
 public:	
+	
 	// Sets default values for this component's properties
 	UInventoryComponent();
 	//UInventoryComponent(const UInventoryComponent& other);
@@ -40,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "MyUI")
 		void CloseInventory();
 
+	UFUNCTION(BlueprintCallable)
+		void AddToInventory(ItemType itemType, int count);
+
 	TSubclassOf<class UUserWidget>uiInventoryBPClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -48,27 +44,26 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isShowInventory;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isShowShop;
-	//PlayerItem Array
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TArray<int32> MyItemArray_ch;
+	TSubclassOf<class UUserWidget>uiShopBPClass;
+	UPROPERTY()
+		UUserWidget* uiShopWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		TMap<int32, int32>  Inven_Items_MAP;
+		bool isShowShop;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TMap<ItemType, int32>  InvenItemMap;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 		class AMyPlayerController* myOwner;
 	
-	
 	UFUNCTION(BlueprintCallable, Category = "MyUI")
-		void UseItem(int ItemID);
+		void UseItem(ItemType itemType);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		int NowWeaponWearing_number=3;
+		ItemType wearingWeapon;
 	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<int32> QuickSlotItemArray;
-	
 };

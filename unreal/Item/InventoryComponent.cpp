@@ -6,7 +6,6 @@
 #include "Runtime/UMG/Public/Blueprint/UserWidget.h"
 #include "UObject/ConstructorHelpers.h"
 #include "MyPlayerController.h"
-//#include "Net/UnrealNetwork.h"
 #include "Engine.h"
 // Sets default values for this component's properties
 UInventoryComponent::UInventoryComponent()
@@ -16,23 +15,11 @@ UInventoryComponent::UInventoryComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 	
 	isShowInventory = false;
-	Inven_Items_MAP.Add(3, 1);
-	Inven_Items_MAP.Add(1, 3);
+	AddToInventory(ItemType::BasicWeapon, 1);
+	AddToInventory(ItemType::HP_Potion, 3);
+	wearingWeapon = ItemType::BasicWeapon;
 	QuickSlotItemArray.Init(0, 2);
 }
-
-void UInventoryComponent::MyInventoryCopyFunc(const UInventoryComponent* other , class AMyPlayerController* controller)
-{
-	Inven_Items_MAP.Empty();
-	if (other==false) return;
-	Inven_Items_MAP = other->Inven_Items_MAP;
-	NowWeaponWearing_number = other->NowWeaponWearing_number;
-	QuickSlotItemArray = other->QuickSlotItemArray;
-	//if(!myOwner && controller)
-	myOwner = controller;
-}
-
-// Called when the game starts
 
 void UInventoryComponent::BeginPlay()
 {
@@ -44,11 +31,19 @@ void UInventoryComponent::BeginPlay()
 void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
 }
 
 
+void UInventoryComponent::MyInventoryCopyFunc(const UInventoryComponent* other , class AMyPlayerController* controller)
+{
+	InvenItemMap.Empty();
+	if (other==false) return;
+	InvenItemMap = other->InvenItemMap;
+	wearingWeapon = other->wearingWeapon;
+	QuickSlotItemArray = other->QuickSlotItemArray;
+	//if(!myOwner && controller)
+	myOwner = controller;
+}
 
 
 void UInventoryComponent::ShowInventory()
@@ -60,10 +55,8 @@ void UInventoryComponent::ShowInventory()
 			FName path = TEXT("/Game/My__/UI/Inven/Inventory.Inventory_C");
 			UClass* GeneratedBP = Cast<UClass>(StaticLoadObject(UClass::StaticClass(), NULL, *path.ToString()));
 			uiInventoryWidget = CreateWidget<UUserWidget>(GetWorld(), GeneratedBP);
-
 		}
 		
-
 		if(uiInventoryWidget && uiInventoryWidget->IsInViewport()==false)
 			uiInventoryWidget->AddToViewport();
 		
@@ -91,47 +84,53 @@ void UInventoryComponent::CloseInventory()
 	isShowInventory = false;
 }
 
+void UInventoryComponent::AddToInventory(ItemType itemType, int count)
+{
+	if (InvenItemMap.Contains(itemType))
+		InvenItemMap[itemType] += count;
+	else
+		InvenItemMap.Add(itemType, 1);
+}
 
-void UInventoryComponent::UseItem(int ItemID)
+void UInventoryComponent::UseItem(ItemType itemType)
 {
 	if (myOwner == false)
 		return;
-	
+
 	auto* player = Cast<APlayerCharacter>(myOwner->GetCharacter());
 	if (player == false)
 		return;
 
-	bool me = false;
+	bool isMine = false;
 	if (myOwner == UGameplayStatics::GetPlayerController(GetWorld(), 0))
-		me = true;
+		isMine = true;
 
-	if (me && Inven_Items_MAP.Find(ItemID) == false)
+	if (isMine && InvenItemMap.Find(itemType) == false)
 		return;
 
-	if (me && player->enable_attack == false)
+	if (isMine && player->enable_attack == false)
 		return;
 
-	ItemType itemType = static_cast<ItemType>(ItemID);
 	switch (itemType)
 	{
 	case ItemType::HP_Potion:
-		if(me)
-			Inven_Items_MAP[ItemID]--;
+		if (isMine)
+			InvenItemMap[itemType]--;
 		player->HP_HEAL(20.F);
 
 		break;
 	case ItemType::Stamina_Potion:
-		if(me)
-			Inven_Items_MAP[ItemID]--;
+		if (isMine)
+			InvenItemMap[itemType]--;
 		player->STAMINA_HEAL(20.F);
 
 		break;
 	case ItemType::BasicWeapon:
-	{	
-		NowWeaponWearing_number = 3;
+	{
+		wearingWeapon = ItemType::BasicWeapon;
 		FOutputDeviceNull pAR;
 		player->CallFunctionByNameWithArguments(TEXT("TempWeaponChange1"), pAR, nullptr, true);
-		if (me && uiInventoryWidget)
+		if (isMine && uiInventoryWidget)
 		{
 			FOutputDeviceNull pAR2;
 			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetWeaponUI_POS"), pAR2, nullptr, true);
@@ -140,10 +139,10 @@ void UInventoryComponent::UseItem(int ItemID)
 	}
 	case ItemType::SpecialWeapon:
 	{
-		NowWeaponWearing_number = 4;
+		wearingWeapon = ItemType::SpecialWeapon;
 		FOutputDeviceNull pAR;
 		player->CallFunctionByNameWithArguments(TEXT("TempWeaponChange2"), pAR, nullptr, true);
-		if (me && uiInventoryWidget)
+		if (isMine && uiInventoryWidget)
 		{
 			FOutputDeviceNull pAR2;
 			uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("SetWeaponUI_POS"), pAR2, nullptr, true);
@@ -153,9 +152,10 @@ void UInventoryComponent::UseItem(int ItemID)
 	default:
 		break;
 	}
-	if (me && Inven_Items_MAP[ItemID] <= 0)
-		Inven_Items_MAP.Remove(ItemID);
-	if (me&& uiInventoryWidget)
+	if (isMine && InvenItemMap[itemType] <= 0)
+		InvenItemMap.Remove(itemType);
+
+	if (isMine && uiInventoryWidget)
 	{
 		FOutputDeviceNull pAR;
 		uiInventoryWidget->CallFunctionByNameWithArguments(TEXT("UpdateMyInventory"), pAR, nullptr, true);
