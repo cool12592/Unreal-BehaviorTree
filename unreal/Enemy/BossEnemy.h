@@ -17,6 +17,7 @@ class NOTEBOOK_API ABossEnemy : public ABasicEnemy
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
 private:
 	void RunCoolTime(float DeltaTime);
 	void CalculateDistFromPlayer();
@@ -25,12 +26,14 @@ private:
 	void Turn();
 	bool CheckNearGround();
 	void BossDie();
-public:
 
+public:
 	ABossEnemy();
 	virtual void Attack() override;
+	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
+
 	UFUNCTION(BlueprintCallable)
-	void Boss_AttackCheck();
+		void Boss_AttackCheck();
 
 	UFUNCTION(NetMulticast, Reliable)
 		 void Attack1_Multicast();
@@ -66,7 +69,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
 		UAnimMontage* RTurnAnim;
 	
-	
 	UFUNCTION(BlueprintCallable)
 		void RotationArroundToPlayer();
 	UFUNCTION(BlueprintCallable)
@@ -76,8 +78,15 @@ public:
 	UFUNCTION()
 		void TickParabola(float delta);
 
-	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool isRotationArroundToPlayer = false;
 
+	bool firstAttack = true;
+
+	const float originalAttackCoolTime = 2.f;
+	float turnCoolTime;
+	float backAttackCoolTime;
+	float suddenAttackCoolTime;
 
 	bool isParabola=false;
 	bool isCheckNearGround=false;
@@ -85,13 +94,6 @@ public:
 	float gravitational_acceleration=8.f;
 	float accumulate_down_vertical_force=0.f;
 	float vertical_force=140.f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		bool isRotationArroundToPlayer = false;
-
-	float TurnCoolTime = 2.f;
-	float backAttackCoolTime = 2.f;
-	float suddenAttackCoolTime = 2.f;
 
 	FVector startLocation;
 	FVector targetLocation;

@@ -27,12 +27,12 @@ void ABossEnemy::BeginPlay()
 	TrackToRange = 400.F;
 
 	isBoss = true;
-	attackCoolTime = 2.f;
-	backAttackCoolTime = 2.f;
-	suddenAttackCoolTime = 2.f;
-	TurnCoolTime = 2.f;
-	MyDamage = 15.f;
+	attackCoolTime = originalAttackCoolTime;
+	turnCoolTime = originalAttackCoolTime;
+	backAttackCoolTime = originalAttackCoolTime;
+	suddenAttackCoolTime = originalAttackCoolTime;
 
+	MyDamage = 15.f;
 	MaxHP = 120.f;
 	HP = MaxHP;
 }
@@ -53,7 +53,7 @@ void ABossEnemy::Tick(float DeltaTime)
 
 void ABossEnemy::RunCoolTime(float DeltaTime)
 {
-	TurnCoolTime -= DeltaTime;
+	turnCoolTime -= DeltaTime;
 	attackCoolTime -= DeltaTime;
 	backAttackCoolTime -= DeltaTime;
 	suddenAttackCoolTime -= DeltaTime;
@@ -110,16 +110,16 @@ void ABossEnemy::CheckBackAttack()
 
 void ABossEnemy::Turn()
 {
-	if (TurnCoolTime > 0) return;
+	if (turnCoolTime > 0) return;
 	auto Dot = FVector::DotProduct((targetLocation - startLocation).GetSafeNormal(), GetActorRightVector());
 	if (Dot >= 0.7f)//¿ìÈ¸Àü
 	{
-		TurnCoolTime = 1.f;
+		turnCoolTime = 1.f;
 		PlayAnimMontage(RTurnAnim, 1.f);
 	}
 	else if (Dot <= -0.7f)
 	{
-		TurnCoolTime = 1.f;
+		turnCoolTime = 1.f;
 		PlayAnimMontage(LTurnAnim, 1.f);
 	}
 }
