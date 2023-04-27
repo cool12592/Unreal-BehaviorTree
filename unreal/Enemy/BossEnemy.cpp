@@ -31,6 +31,7 @@ void ABossEnemy::BeginPlay()
 	backAttackCoolTime = 2.f;
 	suddenAttackCoolTime = 2.f;
 	TurnCoolTime = 2.f;
+	MyDamage = 15.f;
 
 	MaxHP = 120.f;
 	HP = MaxHP;
