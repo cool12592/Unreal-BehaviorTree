@@ -93,7 +93,9 @@ private:
 	int airLaunchCount;
 
 	UPROPERTY()
-	class ABasicEnemy* lastHitEnemy;
+		class ABasicEnemy* lastHitEnemy;
+	UPROPERTY()
+		class UPlayerStatus* status;
 
 	FTimerHandle waveWaitHandle;
 	FTimerHandle WaitHandle;

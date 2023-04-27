@@ -9,6 +9,7 @@
 #include "Engine.h"
 #include "MyAnimInstance.h"
 #include "BasicEnemy.h"
+#include "PlayerStatus.h"
 
 #define LastAirComboCount 6
 #define LastWaveCount 5
@@ -31,6 +32,7 @@ void UNormalSkill::BeginPlay()
 {
 	Super::BeginPlay();
 	SetAllState(true);
+	status = myplayer->FindComponentByClass<UPlayerStatus>();
 }
 
 bool UNormalSkill::CheckNormalSkillCondition(SkillName skillName)
@@ -124,10 +126,10 @@ void UNormalSkill::Skill_AirLaunch_Check()
 				if (airLaunchCount == 1)
 				{
 					enemyActor->GetCharacterMovement()->StopMovementImmediately();
-					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::RightLeft, 3.f, FVector(0.f, 0.f, 1420.f));
+					enemyActor->MyTakeDamage(myplayer, status->GetSkillDamage(SkillName::airLaunch), EnemyHitedState::RightLeft, 3.f, FVector(0.f, 0.f, 1420.f));
 				}
 				else
-					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::RightLeft, 3.f);
+					enemyActor->MyTakeDamage(myplayer, status->GetSkillDamage(SkillName::airLaunch), EnemyHitedState::RightLeft, 3.f);
 			}
 		}
 	}
@@ -215,7 +217,7 @@ void UNormalSkill::AirComboCheck()
 
 				if (airComboCount != LastAirComboCount)
 				{
-					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::RightLeft, 2.f);
+					enemyActor->MyTakeDamage(myplayer, status->GetSkillDamage(SkillName::airCombo), EnemyHitedState::RightLeft, 2.f);
 					enemyActor->LandingTimer(); //내가 때리다 말수있으므로 착륙 타이머시킴
 
 					if (airComboCount == 1)
@@ -226,7 +228,7 @@ void UNormalSkill::AirComboCheck()
 				else
 				{
 					enemyActor->GetCharacterMovement()->GravityScale = 1.f;
-					enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::knock, 3.f, FVector(0, 0, -300.f), TEXT("SWORD_DANCE_READY"));
+					enemyActor->MyTakeDamage(myplayer, status->GetSkillDamage(SkillName::airCombo), EnemyHitedState::knock, 3.f, FVector(0, 0, -300.f), TEXT("SWORD_DANCE_READY"));
 					enemyActor->LandingTimer_Off();//타이머중인건꺼야지혼선방지
 				}
 			}
@@ -416,7 +418,7 @@ void UNormalSkill::Skill_SwordDanceCheck()
 			if (enemyActor && !enemyActor->GetCharacterMovement()->IsMovingOnGround())
 			{
 				enemyActor->CustomTimeDilation = 1.f;
-				enemyActor->MyTakeDamage(myplayer, 10.f, EnemyHitedState::knock, 1.f);
+				enemyActor->MyTakeDamage(myplayer, status->GetSkillDamage(SkillName::airCombo), EnemyHitedState::knock, 1.f);
 			}
 		}
 	}

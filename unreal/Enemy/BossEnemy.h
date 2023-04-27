@@ -33,15 +33,15 @@ public:
 	void Boss_AttackCheck();
 
 	UFUNCTION(NetMulticast, Reliable)
-		virtual void Attack1_Multicast();
+		 void Attack1_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		virtual void Attack2_Multicast();
+		 void Attack2_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		virtual void Attack3_Multicast();
+		 void Attack3_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		virtual void Attack4_Multicast();
+		 void Attack4_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		virtual void Attack5_Multicast();
+		 void Attack5_Multicast();
 
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
 		UAnimMontage* attackAnim1;
@@ -77,8 +77,7 @@ public:
 		void TickParabola(float delta);
 
 	virtual void MyTakeDamage(AActor* attacker, float damage, EnemyHitedState hit, float hitedTime_ = 0.f, FVector launchVec = FVector(0.f, 0.f, 0.f), FName note = TEXT("")) override;
-	
-	float TurnCoolTime;
+
 
 	bool isParabola=false;
 	bool isCheckNearGround=false;
@@ -87,13 +86,12 @@ public:
 	float accumulate_down_vertical_force=0.f;
 	float vertical_force=140.f;
 
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isRotationArroundToPlayer = false;
 
-	float backAttackCoolTime;
-	float suddenAttackCoolTime;
+	float TurnCoolTime = 2.f;
+	float backAttackCoolTime = 2.f;
+	float suddenAttackCoolTime = 2.f;
 
 	FVector startLocation;
 	FVector targetLocation;

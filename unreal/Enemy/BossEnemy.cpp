@@ -134,12 +134,6 @@ void ABossEnemy::Attack()
 		attackNum= FMath::RandRange(1, 3);
 	else
 		attackNum = FMath::RandRange(4, 5);
-	
-	if (firstAttack)
-	{
-		firstAttack = false;
-		attackNum = 5;
-	}
 
 	attackCoolTime = 3.f;
 	IsAttacking = true;
@@ -319,7 +313,7 @@ void ABossEnemy::Boss_AttackCheck()
 			APlayerCharacter* player = Cast<APlayerCharacter>(HitResult.Actor);
 			if (player)
 			{
-				player->MyTakeDamage2(15.f, HitedState::knock, 0.f, GetActorForwardVector() * 1500.f +GetActorUpVector()*500.f);
+				player->MyTakeDamage2(MyDamage, HitedState::knock, 0.f, GetActorForwardVector() * 1500.f +GetActorUpVector()*500.f);
 				return;
 			}
 		}
