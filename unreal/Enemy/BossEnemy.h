@@ -91,9 +91,10 @@ public:
 	bool isParabola=false;
 	bool isCheckNearGround=false;
 	
-	float gravitational_acceleration=8.f;
-	float accumulate_down_vertical_force=0.f;
-	float vertical_force=140.f;
+	const float gravitational_acceleration=8.f;
+	const float vertical_force=140.f;
+	const float accumulate_down_vertical_force;
+
 
 	FVector startLocation;
 	FVector targetLocation;

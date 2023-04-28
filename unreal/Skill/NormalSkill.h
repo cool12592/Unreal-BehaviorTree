@@ -16,7 +16,6 @@ class NOTEBOOK_API UNormalSkill : public UActorComponent
 public:
 	// Sets default values for this component's properties
 	UNormalSkill();
-	class APlayerCharacter* myplayer;
 
 protected:
 	// Called when the game starts
@@ -93,9 +92,11 @@ private:
 	int airLaunchCount;
 
 	UPROPERTY()
-		class ABasicEnemy* lastHitEnemy;
+		class APlayerCharacter* myplayer;
 	UPROPERTY()
 		class UPlayerStatus* status;
+	UPROPERTY()
+		class ABasicEnemy* lastHitEnemy;
 
 	FTimerHandle waveWaitHandle;
 	FTimerHandle WaitHandle;

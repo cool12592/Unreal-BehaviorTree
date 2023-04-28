@@ -31,8 +31,11 @@ UNormalSkill::UNormalSkill()
 void UNormalSkill::BeginPlay()
 {
 	Super::BeginPlay();
-	SetAllState(true);
+	
+	myplayer = Cast<APlayerCharacter>(GetOwner());
+	checkf(myplayer, TEXT("Ptr is nullptr"));
 	status = myplayer->FindComponentByClass<UPlayerStatus>();
+	checkf(status, TEXT("Ptr is nullptr"));
 }
 
 bool UNormalSkill::CheckNormalSkillCondition(SkillName skillName)
