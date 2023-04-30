@@ -78,7 +78,7 @@ void ABossEnemy::CheckSuddenAttack()
 				suddenAttackCoolTime = 5.f;
 				attackCoolTime = 2.f;
 				IsAttacking = true;
-				TurnAttack_Multicast(); //얘는 애니메이션자체에서 움직임
+				TurnAttack(); //얘는 애니메이션자체에서 움직임
 			}
 			else
 				suddenAttackCoolTime = 0.9f; //한번은더할수있게
@@ -103,7 +103,7 @@ void ABossEnemy::CheckBackAttack()
 			IsAttacking = true;
 			attackCoolTime = 2.f;
 			backAttackCoolTime = 5.f;
-			BackAttack_Multicast();
+			BackAttack();
 		}
 	}
 }
@@ -139,45 +139,45 @@ void ABossEnemy::Attack()
 
 		//보스의 콤보 공격들은 애니메이션 몽타주 끝부분에 nextCombo notify로 발동한다 (확률적으로)
 		if (closeAttackNum == 1)
-			NormalAttackCombo_Multicast();
+			NormalAttackCombo();
 		else if (closeAttackNum == 2)
-			NormalAttackCombo_Multicast();
+			NormalAttackCombo();
 		else if (closeAttackNum == 3)
-			TurnAttack_Multicast();
+			TurnAttack();
 	}
 	else
 	{
 		int rangeAttackNum = FMath::RandRange(1, 2);
 
 		if (rangeAttackNum == 1)
-			RangeAttack1_Multicast();
+			RangeAttack1();
 		else if (rangeAttackNum == 2)
-			RangeAttack2_Multicast();
+			RangeAttack2();
 	}
 }
 
-void ABossEnemy::BackAttack_Multicast_Implementation()
+void ABossEnemy::BackAttack()
 {
 	SetActorRotation((GetActorForwardVector() * -1.f).Rotation());
 	PlayAnimMontage(backAttackAnim, 1.f);
 }
 
-void ABossEnemy::NormalAttackCombo_Multicast_Implementation()
+void ABossEnemy::NormalAttackCombo()
 {
 	PlayAnimMontage(normalAttackAnim, 1.f);
 }
 
-void ABossEnemy::RangeAttack1_Multicast_Implementation()
+void ABossEnemy::RangeAttack1()
 {
 	PlayAnimMontage(rangeAttackAnim1, 1.f);
 }
 
-void ABossEnemy::TurnAttack_Multicast_Implementation()
+void ABossEnemy::TurnAttack()
 {
 	PlayAnimMontage(turnAttackAnim, 1.f);
 }
 
-void ABossEnemy::RangeAttack2_Multicast_Implementation()
+void ABossEnemy::RangeAttack2()
 {
 	isRotationArroundToPlayer = true;
 

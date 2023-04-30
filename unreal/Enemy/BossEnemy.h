@@ -26,6 +26,14 @@ private:
 	void Turn();
 	bool CheckNearGround();
 	void BossDie();
+	void RotationArroundToPlayer();
+	void ProjectToTarget();
+	void TickParabola(float delta);
+	void NormalAttackCombo();
+	void RangeAttack1();
+	void TurnAttack();
+	void RangeAttack2();
+	void BackAttack();
 
 public:
 	ABossEnemy();
@@ -34,17 +42,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void Boss_AttackCheck();
-
-	UFUNCTION(NetMulticast, Reliable)
-		 void NormalAttackCombo_Multicast();
-	UFUNCTION(NetMulticast, Reliable)
-		 void RangeAttack1_Multicast();
-	UFUNCTION(NetMulticast, Reliable)
-		 void TurnAttack_Multicast();
-	UFUNCTION(NetMulticast, Reliable)
-		 void RangeAttack2_Multicast();
-	UFUNCTION(NetMulticast, Reliable)
-		 void BackAttack_Multicast();
 
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
 		UAnimMontage* normalAttackAnim;
@@ -69,18 +66,14 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
 		UAnimMontage* RTurnAnim;
 	
-	UFUNCTION(BlueprintCallable)
-		void RotationArroundToPlayer();
+	
 	UFUNCTION(BlueprintCallable)
 		void LaunchToPlayer();
-	UFUNCTION()
-		void ProjectToTarget();
-	UFUNCTION()
-		void TickParabola(float delta);
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool isRotationArroundToPlayer = false;
 
+private:
 	bool firstAttack = true;
 
 	const float closeAttackRange = 900.f;
