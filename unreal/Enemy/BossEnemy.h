@@ -36,26 +36,26 @@ public:
 		void Boss_AttackCheck();
 
 	UFUNCTION(NetMulticast, Reliable)
-		 void Attack1_Multicast();
+		 void NormalAttackCombo_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		 void Attack2_Multicast();
+		 void RangeAttack1_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		 void Attack3_Multicast();
+		 void TurnAttack_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		 void Attack4_Multicast();
+		 void RangeAttack2_Multicast();
 	UFUNCTION(NetMulticast, Reliable)
-		 void Attack5_Multicast();
+		 void BackAttack_Multicast();
 
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
-		UAnimMontage* attackAnim1;
+		UAnimMontage* normalAttackAnim;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
-		UAnimMontage* attackAnim2;
+		UAnimMontage* rangeAttackAnim1;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
-		UAnimMontage* attackAnim3;
+		UAnimMontage* turnAttackAnim;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
-		UAnimMontage* attackAnim4;
+		UAnimMontage* rangeAttackAnim2;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
-		UAnimMontage* attackAnim5;
+		UAnimMontage* backAttackAnim;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
 		UAnimMontage* LDodgeAnim;
 	UPROPERTY(EditDefaultsOnly, Category = Pawn)
@@ -83,6 +83,7 @@ public:
 
 	bool firstAttack = true;
 
+	const float closeAttackRange = 900.f;
 	const float originalAttackCoolTime = 2.f;
 	float turnCoolTime;
 	float backAttackCoolTime;
@@ -93,8 +94,7 @@ public:
 	
 	const float gravitational_acceleration=8.f;
 	const float vertical_force=140.f;
-	const float accumulate_down_vertical_force;
-
+	float accumulate_down_vertical_force;
 
 	FVector startLocation;
 	FVector targetLocation;

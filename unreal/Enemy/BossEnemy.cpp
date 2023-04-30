@@ -78,7 +78,7 @@ void ABossEnemy::CheckSuddenAttack()
 				suddenAttackCoolTime = 5.f;
 				attackCoolTime = 2.f;
 				IsAttacking = true;
-				Attack3_Multicast(); //얘는 애니메이션자체에서 움직임
+				TurnAttack_Multicast(); //얘는 애니메이션자체에서 움직임
 			}
 			else
 				suddenAttackCoolTime = 0.9f; //한번은더할수있게
@@ -103,7 +103,7 @@ void ABossEnemy::CheckBackAttack()
 			IsAttacking = true;
 			attackCoolTime = 2.f;
 			backAttackCoolTime = 5.f;
-			Attack5_Multicast();
+			BackAttack_Multicast();
 		}
 	}
 }
@@ -130,51 +130,54 @@ void ABossEnemy::Attack()
 
 	CalculateDistFromPlayer();
 
-	int attackNum;
-	if (distance <= 900.f)
-		attackNum= FMath::RandRange(1, 3);
-	else
-		attackNum = FMath::RandRange(4, 5);
-
 	attackCoolTime = 3.f;
 	IsAttacking = true;
 
-	if (attackNum == 1 )
-		Attack1_Multicast();
-	else if (attackNum == 2)
-		Attack1_Multicast();
-	else if (attackNum == 3)
-		Attack3_Multicast();
-	else if (attackNum == 4)
-		Attack2_Multicast();
-	else if (attackNum == 5 )
-		Attack4_Multicast();
+	if (distance <= closeAttackRange)
+	{
+		int closeAttackNum = FMath::RandRange(1, 3);
+
+		//보스의 콤보 공격들은 애니메이션 몽타주 끝부분에 nextCombo notify로 발동한다 (확률적으로)
+		if (closeAttackNum == 1)
+			NormalAttackCombo_Multicast();
+		else if (closeAttackNum == 2)
+			NormalAttackCombo_Multicast();
+		else if (closeAttackNum == 3)
+			TurnAttack_Multicast();
+	}
 	else
-		return;
+	{
+		int rangeAttackNum = FMath::RandRange(1, 2);
+
+		if (rangeAttackNum == 1)
+			RangeAttack1_Multicast();
+		else if (rangeAttackNum == 2)
+			RangeAttack2_Multicast();
+	}
 }
 
-void ABossEnemy::Attack5_Multicast_Implementation()
+void ABossEnemy::BackAttack_Multicast_Implementation()
 {
 	SetActorRotation((GetActorForwardVector() * -1.f).Rotation());
-	PlayAnimMontage(attackAnim5, 1.f);
+	PlayAnimMontage(backAttackAnim, 1.f);
 }
 
-void ABossEnemy::Attack1_Multicast_Implementation()
+void ABossEnemy::NormalAttackCombo_Multicast_Implementation()
 {
-	PlayAnimMontage(attackAnim1, 1.f);
+	PlayAnimMontage(normalAttackAnim, 1.f);
 }
 
-void ABossEnemy::Attack2_Multicast_Implementation()
+void ABossEnemy::RangeAttack1_Multicast_Implementation()
 {
-	PlayAnimMontage(attackAnim2, 1.f);
+	PlayAnimMontage(rangeAttackAnim1, 1.f);
 }
 
-void ABossEnemy::Attack3_Multicast_Implementation()
+void ABossEnemy::TurnAttack_Multicast_Implementation()
 {
-	PlayAnimMontage(attackAnim3, 1.f);
+	PlayAnimMontage(turnAttackAnim, 1.f);
 }
 
-void ABossEnemy::Attack4_Multicast_Implementation()
+void ABossEnemy::RangeAttack2_Multicast_Implementation()
 {
 	isRotationArroundToPlayer = true;
 
@@ -200,7 +203,7 @@ void ABossEnemy::RotationArroundToPlayer()
 void ABossEnemy::LaunchToPlayer()
 {
 	GetCharacterMovement()->StopMovementImmediately();
-	PlayAnimMontage(attackAnim4, 1.f);
+	PlayAnimMontage(rangeAttackAnim2, 1.f);
 
 	ProjectToTarget();
 	isCheckNearGround = false;
