@@ -1,0 +1,496 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Skill\\NormalSkill.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Skill\\NormalSkill.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Riding\\HorseCharacter.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Riding\\HorseCharacter.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Item\\ItemBase.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Item\\ItemBase.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Item\\InventoryComponent.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Item\\InventoryComponent.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Enemy\\MyAIController.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Enemy\\MyAIController.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Enemy\\BossEnemy.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Enemy\\BossEnemy.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTAsk_TurnToTarget.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTAsk_TurnToTarget.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_MyMoveTo.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_MyMoveTo.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_Hited.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_Hited.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_FindPatrolPos.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_FindPatrolPos.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_Attack.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTTask_Attack.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTService_Detect.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTService_Detect.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTDecorator_IsNotHited.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTDecorator_IsNotHited.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.h||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTDecorator_IsInAttackRange.h||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:BehaviorTree\\BTDecorator_IsInAttackRange.cpp||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NormalSkill.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.h",
+              "RelativeDocumentMoniker": "Skill\\NormalSkill.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.h",
+              "RelativeToolTip": "Skill\\NormalSkill.h",
+              "ViewState": "AgIAAF0AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:20:00.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NormalSkill.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.cpp",
+              "RelativeDocumentMoniker": "Skill\\NormalSkill.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Skill\\NormalSkill.cpp",
+              "RelativeToolTip": "Skill\\NormalSkill.cpp",
+              "ViewState": "AgIAAOYBAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:19:46.041Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HorseCharacter.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.h",
+              "RelativeDocumentMoniker": "Riding\\HorseCharacter.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.h",
+              "RelativeToolTip": "Riding\\HorseCharacter.h",
+              "ViewState": "AgIAABsAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:19:41.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HorseCharacter.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.cpp",
+              "RelativeDocumentMoniker": "Riding\\HorseCharacter.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Riding\\HorseCharacter.cpp",
+              "RelativeToolTip": "Riding\\HorseCharacter.cpp",
+              "ViewState": "AgIAAE4AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:19:34.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ItemBase.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.h",
+              "RelativeDocumentMoniker": "Item\\ItemBase.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.h",
+              "RelativeToolTip": "Item\\ItemBase.h",
+              "ViewState": "AgIAADMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:19:26.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ItemBase.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.cpp",
+              "RelativeDocumentMoniker": "Item\\ItemBase.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\ItemBase.cpp",
+              "RelativeToolTip": "Item\\ItemBase.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:19:25.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "InventoryComponent.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.h",
+              "RelativeDocumentMoniker": "Item\\InventoryComponent.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.h",
+              "RelativeToolTip": "Item\\InventoryComponent.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:19:14.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InventoryComponent.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.cpp",
+              "RelativeDocumentMoniker": "Item\\InventoryComponent.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Item\\InventoryComponent.cpp",
+              "RelativeToolTip": "Item\\InventoryComponent.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvxIAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:18:42.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MyAIController.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.h",
+              "RelativeDocumentMoniker": "Enemy\\MyAIController.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.h",
+              "RelativeToolTip": "Enemy\\MyAIController.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:18:35.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MyAIController.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.cpp",
+              "RelativeDocumentMoniker": "Enemy\\MyAIController.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\MyAIController.cpp",
+              "RelativeToolTip": "Enemy\\MyAIController.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:18:26.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BossEnemy.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.h",
+              "RelativeDocumentMoniker": "Enemy\\BossEnemy.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.h",
+              "RelativeToolTip": "Enemy\\BossEnemy.h",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:17:35.138Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BossEnemy.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.cpp",
+              "RelativeDocumentMoniker": "Enemy\\BossEnemy.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\Enemy\\BossEnemy.cpp",
+              "RelativeToolTip": "Enemy\\BossEnemy.cpp",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAAAH4AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:58.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "BTTAsk_TurnToTarget.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTAsk_TurnToTarget.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.h",
+              "RelativeToolTip": "BehaviorTree\\BTTAsk_TurnToTarget.h",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:56.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BTTAsk_TurnToTarget.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTAsk_TurnToTarget.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTAsk_TurnToTarget.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTTAsk_TurnToTarget.cpp",
+              "ViewState": "AgIAADMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:52.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "BTTask_MyMoveTo.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_MyMoveTo.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.h",
+              "RelativeToolTip": "BehaviorTree\\BTTask_MyMoveTo.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:49.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "BTTask_MyMoveTo.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_MyMoveTo.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_MyMoveTo.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTTask_MyMoveTo.cpp",
+              "ViewState": "AgIAAC0AAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:42.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BTTask_Hited.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_Hited.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.h",
+              "RelativeToolTip": "BehaviorTree\\BTTask_Hited.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:41.489Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "BTTask_Hited.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_Hited.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Hited.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTTask_Hited.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:40.761Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "BTTask_FindPatrolPos.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_FindPatrolPos.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.h",
+              "RelativeToolTip": "BehaviorTree\\BTTask_FindPatrolPos.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:40.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "BTTask_FindPatrolPos.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_FindPatrolPos.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_FindPatrolPos.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTTask_FindPatrolPos.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:37.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "BTTask_Attack.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_Attack.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.h",
+              "RelativeToolTip": "BehaviorTree\\BTTask_Attack.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:36.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "BTTask_Attack.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTTask_Attack.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTTask_Attack.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTTask_Attack.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:16:33.625Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "BTService_Detect.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTService_Detect.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.h",
+              "RelativeToolTip": "BehaviorTree\\BTService_Detect.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:16:32.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "BTService_Detect.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTService_Detect.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTService_Detect.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTService_Detect.cpp",
+              "ViewState": "AgIAAC0AAAAAAAAAAADwvzwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:15:19.106Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "BTDecorator_IsNotHited.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTDecorator_IsNotHited.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.h",
+              "RelativeToolTip": "BehaviorTree\\BTDecorator_IsNotHited.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:15:17.562Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "BTDecorator_IsNotHited.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTDecorator_IsNotHited.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsNotHited.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTDecorator_IsNotHited.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:15:16.826Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "BTDecorator_IsInAttackRange.h",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.h",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTDecorator_IsInAttackRange.h",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.h",
+              "RelativeToolTip": "BehaviorTree\\BTDecorator_IsInAttackRange.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-02T19:15:14.092Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "BTDecorator_IsInAttackRange.cpp",
+              "DocumentMoniker": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.cpp",
+              "RelativeDocumentMoniker": "BehaviorTree\\BTDecorator_IsInAttackRange.cpp",
+              "ToolTip": "D:\\GitHub_Sub\\Unreal_sample\\unreal\\BehaviorTree\\BTDecorator_IsInAttackRange.cpp",
+              "RelativeToolTip": "BehaviorTree\\BTDecorator_IsInAttackRange.cpp",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-02T19:15:02.905Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

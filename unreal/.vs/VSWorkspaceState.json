@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\BehaviorTree",
+    "\\Enemy",
+    "\\Item",
+    "\\Riding",
+    "\\Skill"
+  ],
+  "SelectedNode": "\\Skill\\NormalSkill.h",
+  "PreviewInSolutionExplorer": false
+}
